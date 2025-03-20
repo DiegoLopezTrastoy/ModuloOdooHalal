@@ -1,0 +1,38 @@
+<odoo>
+  <record id="certificates_kanban" model="ir.ui.view">
+    <field name="name">Certificados</field>
+    <field name="model">certificates</field>
+    <field name="arch" type="xml">
+      <kanban default_group_by="x_status">
+        <t t-name="card" class="m-3">
+          <div class="row">
+            <div class="col-8">
+              <label for="x_client">Cliente:</label>
+              <br />
+              <strong>
+                <field name="x_client" />
+              </strong>
+              <br />
+              <br />
+              <label for="x_description">Descripción:</label>
+              <br />
+              <field name="x_description" />
+            </div>
+          </div>
+        </t>
+      </kanban>
+    </field>
+  </record>
+
+  <record id="action_certificates" model="ir.actions.act_window">
+    <field name="name">Certificates</field>
+    <field name="res_model">certificates</field>
+    <field name="view_mode">kanban,form</field>
+    <field name="view_id" ref="certificates_kanban" />
+    <field name="path">certificates</field>
+  </record>
+
+  <menuitem id="menu_certificates_root" name="Certificados" sequence="10"
+    action="action_certificates" />
+
+</odoo>

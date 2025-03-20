@@ -1,0 +1,54 @@
+<odoo>
+    <record id="my_pdf_report" model="ir.actions.report">
+        <field name="name">Certificados</field>
+        <field name="model">certificates</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">my_portal.my_pdf_template</field>
+        <field name="report_file">my_portal.my_pdf_template</field>
+        <field name="print_report_name">'Certificado'</field>
+    </record>
+
+    <template id="my_pdf_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="base_url" t-value="request.env['ir.config_parameter'].get_param('web.base.url')"/>
+                <div class="container mt-4"></div>
+                <h2>Detalles del Certificado</h2>
+                <img t-att-src="base_url+'/report/barcode/QR/&quot;'+base_url+'/my/check_certificate?UUID='+doc.x_uuid+'&quot;'" width="150px" height="150px" alt="QR" />
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5 class="card-title">Información del Certificado</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <strong>Descripción:</strong>
+                                <p t-esc="doc.x_description" />
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Estado:</strong>
+                                <p t-esc="doc.x_status" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <strong>Fecha de Emisión:</strong>
+                                <p t-esc="doc.x_emision_date" />
+                            </div>
+                            <div class="col-md-6">
+                                <strong>Fecha de Expiración:</strong>
+                                <p t-esc="doc.x_expiration_date" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <strong>Emisor:</strong>
+                                <p t-esc="doc.x_emisor.name" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

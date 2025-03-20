@@ -1,0 +1,203 @@
+<odoo>
+    <data>
+        <template id="custom_portal_layout" name="Custom portal layout"
+            inherit_id="portal.portal_my_home">
+            <xpath expr="//div[@class='o_portal_my_home']" position="inside">
+
+                <div
+                    class="wrapper col-12 d-flex flex-wrap justify-content-between align-items-center">
+                    <h3 class="my-3">Certificados</h3>
+                </div>
+                <div class="row justify-content-between">
+                    <div t-attf-class="o_portal_content col-12 col-lg-8 mb-5">
+                        <div class="o_portal_category row g-2 mt-3">
+
+                            <div class="o_portal_index_card col-md-6 order-2">
+                                <a href="/my/request_certificate"
+                                    class="d-flex gap-2 gap-md-3 py-3 pe-2 px-md-3 h-100 rounded text-decoration-none bg-100">
+                                    <div class="o_portal_icon d-block align-self-start">
+                                        <img src="/my_portal/static/src/img/certificate.png"
+                                            width="64px" heigth="64px" />
+                                    </div>
+                                    <div class="">
+                                        <div class="mt-0 mb-1 fs-5 fw-normal lh-1 ">
+
+                                            <span>Pedir certificado</span>
+                                        </div>
+                                        <div class="opacity-75">
+                                            Solicitar un certificado
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="o_portal_index_card col-md-6 order-2">
+                                <a href="/my/mis_certificados"
+                                    class="d-flex gap-2 gap-md-3 py-3 pe-2 px-md-3 h-100 rounded text-decoration-none bg-100">
+                                    <div class="o_portal_icon d-block align-self-start">
+                                        <img src="/my_portal/static/src/img/certificates.png"
+                                            width="64px" heigth="64px" />
+                                    </div>
+                                    <div class="">
+                                        <div class="mt-0 mb-1 fs-5 fw-normal lh-1 ">
+
+                                            <span>Mis certificados</span>
+                                        </div>
+                                        <div class="opacity-75">
+                                            Ver y gestionar mis certificados
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </xpath>
+        </template>
+
+        <template id="my_portal_certificates">
+            <t t-call="portal.portal_layout">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Stado</th>
+                            <th>Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="certificates" t-as="certificate">
+                                <tr>
+                                    <td>
+                                        <t t-esc="certificate.x_description" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="certificate.x_status" />
+                                    </td>
+                                    <td>
+                                        <a t-att-href="'/my/certificate?UUID=' + certificate.x_uuid">Ver</a>
+                                        <a t-att-href="'/my/printCertificate?UUID=' + certificate.x_uuid">Pdf</a>
+                                    </td>
+                                </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+        </template>
+
+        <template id="my_portal_request_certificate">
+            <t t-call="portal.portal_layout">
+                <div class="container mt-4">
+                    <h2>Solicitar un nuevo certificado</h2>
+                    <form action="/my/certificates/create" method="post" class="mt-3">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                        <div class="form-group mt-3">
+                            <label for="description">Descripción</label>
+                            <input type="text" id="description" name="x_description"
+                                class="form-control" placeholder="Descripción" required="required" />
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+                    </form>
+                </div>
+            </t>
+        </template>
+
+        <template id="my_portal_check_certificates">
+            <t t-call="portal.portal_layout">
+                <t t-if="certificate">
+                    <div class="container mt-4"></div>
+                    <h2>Detalles del Certificado</h2>
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h5 class="card-title">Información del Certificado</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <strong>Descripción:</strong>
+                                    <p t-esc="certificate.x_description" />
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Estado:</strong>
+                                    <p t-esc="certificate.x_status" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <strong>Fecha de Emisión:</strong>
+                                    <p t-esc="certificate.x_emision_date" />
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Fecha de Expiración:</strong>
+                                    <p t-esc="certificate.x_expiration_date" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <strong>Emisor:</strong>
+                                    <p t-esc="certificate.x_emisor.name" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-else="">
+                    <div class="container mt-4">
+                        <h2>No se encontró el certificado</h2>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="my_portal_see_certificate">
+            <t t-call="portal.portal_layout">
+                <t t-if="certificate">
+                    <div class="container mt-4"></div>
+                    <h2>Detalles del Certificado</h2>
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h5 class="card-title">Información del Certificado</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <strong>Descripción:</strong>
+                                    <p t-esc="certificate.x_description" />
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Estado:</strong>
+                                    <p t-esc="certificate.x_status" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <strong>Fecha de Emisión:</strong>
+                                    <p t-esc="certificate.x_emision_date" />
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Fecha de Expiración:</strong>
+                                    <p t-esc="certificate.x_expiration_date" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <strong>Emisor:</strong>
+                                    <p t-esc="certificate.x_emisor.name" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                <t t-else="">
+                    <div class="container mt-4">
+                        <h2>No se encontró el certificado</h2>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_certificates_user,access_certificates_user,model_certificates,base.group_user,1,1,1,1
+access_certificates_portal,access_certificates_portal,model_certificates,base.group_portal,1,0,1,0
