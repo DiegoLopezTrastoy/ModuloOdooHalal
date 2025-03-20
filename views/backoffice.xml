@@ -29,7 +29,6 @@
     <field name="res_model">certificates</field>
     <field name="view_mode">kanban,form</field>
     <field name="view_id" ref="certificates_kanban" />
-    <field name="path">certificates</field>
   </record>
 
   <menuitem id="menu_certificates_root" name="Certificados" sequence="10"
