@@ -58,7 +58,7 @@
             </xpath>
         </template>
 
-        <template id="my_portal_certificates">
+        <template id="certificates">
             <t t-call="portal.portal_layout">
                 <table>
                     <thead>
@@ -88,7 +88,7 @@
             </t>
         </template>
 
-        <template id="my_portal_request_certificate">
+        <template id="request_certificate">
             <t t-call="portal.portal_layout">
                 <div class="container mt-4">
                     <h2>Solicitar un nuevo certificado</h2>
@@ -105,7 +105,7 @@
             </t>
         </template>
 
-        <template id="my_portal_check_certificates">
+        <template id="check_certificates">
             <t t-call="portal.portal_layout">
                 <t t-if="certificate">
                     <div class="container mt-4"></div>
@@ -152,7 +152,7 @@
             </t>
         </template>
 
-        <template id="my_portal_see_certificate">
+        <template id="see_certificate">
             <t t-call="portal.portal_layout">
                 <t t-if="certificate">
                     <div class="container mt-4"></div>
