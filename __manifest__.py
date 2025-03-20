@@ -9,8 +9,8 @@
     'depends': ['base', 'portal', 'barcodes'],
     'data': [
         'security/ir.model.access.csv',
-        'views/backoffice.xml',
         'views/portal_templates.xml',
+        'views/backoffice.xml',
         'views/reports.xml',
     ],
     'demo': [
